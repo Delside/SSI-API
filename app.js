@@ -1,5 +1,44 @@
-var express = require('express');
+const express = require('express');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
+const app = express();
+//CONNECTING TO DATABASE
+mongoose.connect('mongodb+srv://admin:'+ process.env.MongoDBPassword +'@cluster0.kgkmp.mongodb.net/SSI-DB?retryWrites=true&w=majority', 
+{ useNewUrlParser: true, useUnifiedTopology: true} 
+);
+
+//LOGGER
+app.use(morgan('combined'))
+//PARSING DATA
+app.use(bodyParser.json());
+
+const definitionsRoutes =  require('./routes/definitions');
+
+app.use('/definitions', definitionsRoutes);
+
+app.use((req, res, next) =>{
+    const error = new Error('Nie znaleziono strony');
+    error.status = 404;
+    next(error);
+});
+
+app.use((error, req, res, next) =>{
+    res.status(error.status || 500).json({
+        blad: 
+        {wiadomosc: error.message}
+
+    });
+});
+
+module.exports = app;
+
+
+
+/* var express = require('express');
 var app = express();
+
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
@@ -12,7 +51,7 @@ async function main(){
     /**
      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
-     */
+     
     const MongoClient = require('mongodb').MongoClient;
     const uri = "mongodb+srv://admin:admin@cluster0.kgkmp.mongodb.net/<dbname>?retryWrites=true&w=majority";
     const client = new MongoClient(uri);
@@ -51,6 +90,4 @@ async function listDatabases(client){
 async function createListing(client, newListing){
     const result = await client.db("SSI-DB").collection("SSI").insertOne(newListing);
     console.log(`New listing created with the following id: ${result.insertedId}`);
-
-    
-}
+} */
