@@ -21,7 +21,7 @@ exports.definitions_create = (req, res, next)=>{
     })
     definition.save()
     .then((docs) =>{
-        res.status(201).json({
+        res.status(200).json({
             wiadomosc: 'Dodano nową definicję: ',
             info: definition
         });

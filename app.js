@@ -5,9 +5,18 @@ const bodyParser = require('body-parser');
 
 const app = express();
 //CONNECTING TO DATABASE
-mongoose.connect('mongodb+srv://admin:'+ process.env.MongoDBPassword +'@cluster0.kgkmp.mongodb.net/SSI-DB?retryWrites=true&w=majority', 
+mongoose.connect('mongodb+srv://admin:admin@cluster0.kgkmp.mongodb.net/SSI-DB?retryWrites=true&w=majority', 
 { useNewUrlParser: true, useUnifiedTopology: true} 
-);
+).catch(err => console.log(err));
+
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "localhost:4200");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+};
+
+app.use(allowCrossDomain);
 
 //LOGGER
 app.use(morgan('combined'))

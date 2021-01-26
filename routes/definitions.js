@@ -6,7 +6,7 @@ const DefinitionsController = require('../controllers/definitions')
 router.get('/', DefinitionsController.definitions_get_all);
 
 router.get('/:definitionId', DefinitionsController.definitions_get);
-router.post('/',  DefinitionsController.definitions_create);
+router.post('/', DefinitionsController.definitions_create);
 
 router.patch('/:definitionId', DefinitionsController.definitions_update);
 
