@@ -29,4 +29,4 @@ You will need Browser and IDE with NodeJS and Express.js to run the project.
 
 ## Backend
 
-For proper functioning, you will also need frontend part of project. It is available here: [SSI - API](https://github.com/Delside/SSI)
+For proper functioning, you will also need frontend part of project. It is available here: [SSI - UI](https://github.com/Delside/SSI)
